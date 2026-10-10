@@ -1,0 +1,291 @@
+<div dir="rtl" class="min-h-screen bg-gray-50 p-6">
+
+  <!-- HEADER -->
+
+  <div class="mb-8">
+
+    <h1 class="text-3xl font-black text-gray-900">
+      تراکنش‌های من 💳
+    </h1>
+
+    <p class="mt-2 text-sm text-gray-500">
+      تاریخچه خریدها و تغییرات امتیاز حساب شما
+    </p>
+
+  </div>
+
+
+  <!-- SUMMARY -->
+
+  <div class="mb-8 grid gap-4 md:grid-cols-3">
+
+    <!-- خرید -->
+
+    <div class="rounded-2xl border border-gray-200 bg-white p-5">
+
+      <div class="flex items-center justify-between">
+
+        <div>
+
+          <p class="text-sm text-gray-400">
+            مجموع خریدها
+          </p>
+
+          <p class="mt-2 text-2xl font-black text-gray-900">
+            ۷,۵۰۰,۰۰۰
+          </p>
+
+          <p class="mt-1 text-xs text-gray-400">
+            تومان
+          </p>
+
+        </div>
+
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-2xl">
+          🛒
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- امتیاز -->
+
+    <div class="rounded-2xl border border-gray-200 bg-white p-5">
+
+      <div class="flex items-center justify-between">
+
+        <div>
+
+          <p class="text-sm text-gray-400">
+            امتیاز کسب شده
+          </p>
+
+          <p class="mt-2 text-2xl font-black text-green-600">
+            +750
+          </p>
+
+          <p class="mt-1 text-xs text-gray-400">
+            امتیاز
+          </p>
+
+        </div>
+
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-2xl">
+          ⭐
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- جایزه -->
+
+    <div class="rounded-2xl border border-gray-200 bg-white p-5">
+
+      <div class="flex items-center justify-between">
+
+        <div>
+
+          <p class="text-sm text-gray-400">
+            امتیاز مصرف شده
+          </p>
+
+          <p class="mt-2 text-2xl font-black text-red-600">
+            -620
+          </p>
+
+          <p class="mt-1 text-xs text-gray-400">
+            امتیاز
+          </p>
+
+        </div>
+
+        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-2xl">
+          🎁
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TRANSACTIONS -->
+
+  <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white">
+
+    <!-- TABLE HEADER -->
+
+    <div class="border-b border-gray-200 px-6 py-5">
+
+      <h2 class="text-xl font-black text-gray-900">
+        تاریخچه تراکنش‌ها
+      </h2>
+
+    </div>
+
+
+    <!-- TABLE -->
+
+    <div class="overflow-x-auto">
+
+      <table class="w-full min-w-[700px] text-right">
+
+        <thead class="bg-gray-50">
+
+          <tr class="text-sm text-gray-500">
+
+            <th class="px-6 py-4 font-bold">
+              تراکنش
+            </th>
+
+            <th class="px-6 py-4 font-bold">
+              تاریخ
+            </th>
+
+            <th class="px-6 py-4 font-bold">
+              مبلغ
+            </th>
+
+            <th class="px-6 py-4 font-bold">
+              امتیاز
+            </th>
+
+            <th class="px-6 py-4 font-bold">
+              وضعیت
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody class="divide-y divide-gray-100">
+
+          @for (transaction of transactions; track transaction.id) {
+
+            <tr class="transition hover:bg-gray-50">
+
+              <!-- TITLE -->
+
+              <td class="px-6 py-5">
+
+                <div class="flex items-center gap-3">
+
+                  <div
+                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100"
+                  >
+
+                    @if (transaction.type === 'خرید') {
+                      🛒
+                    }
+
+                    @if (transaction.type === 'جایزه') {
+                      🎁
+                    }
+
+                    @if (transaction.type === 'بازگشت') {
+                      ↩️
+                    }
+
+                  </div>
+
+                  <div>
+
+                    <p class="text-sm font-bold text-gray-800">
+                      {{ transaction.title }}
+                    </p>
+
+                    <p class="mt-1 text-xs text-gray-400">
+                      #{{ transaction.id }}
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </td>
+
+
+              <!-- DATE -->
+
+              <td class="px-6 py-5 text-sm text-gray-500">
+                {{ transaction.date }}
+              </td>
+
+
+              <!-- AMOUNT -->
+
+              <td class="px-6 py-5">
+
+                @if (transaction.amount !== '۰') {
+
+                  <span class="text-sm font-bold text-gray-800">
+                    {{ transaction.amount }}
+                  </span>
+
+                  <span class="mr-1 text-xs text-gray-400">
+                    تومان
+                  </span>
+
+                } @else {
+
+                  <span class="text-sm text-gray-400">
+                    —
+                  </span>
+
+                }
+
+              </td>
+
+
+              <!-- POINTS -->
+
+              <td class="px-6 py-5">
+
+                @if (transaction.points > 0) {
+
+                  <span class="font-black text-green-600">
+                    +{{ transaction.points }}
+                  </span>
+
+                } @else {
+
+                  <span class="font-black text-red-600">
+                    {{ transaction.points }}
+                  </span>
+
+                }
+
+              </td>
+
+
+              <!-- STATUS -->
+
+              <td class="px-6 py-5">
+
+                <span
+                  class="rounded-full bg-green-50 px-3 py-1.5 text-xs font-bold text-green-600"
+                >
+                  {{ transaction.status }}
+                </span>
+
+              </td>
+
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

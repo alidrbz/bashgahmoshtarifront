@@ -1,0 +1,123 @@
+<div
+  dir="rtl"
+  class="flex min-h-screen items-center justify-center bg-gray-100 px-4"
+>
+
+  <div
+    class="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl"
+  >
+
+    <!-- عنوان -->
+
+    <div class="mb-8 text-center">
+
+      <div
+        class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-red-100 text-3xl"
+      >
+        👤
+      </div>
+
+      <h1 class="text-2xl font-black text-gray-900">
+        ورود به باشگاه مشتریان
+      </h1>
+
+      <p class="mt-2 text-sm text-gray-500">
+        برای ورود اطلاعات حساب خود را وارد کنید
+      </p>
+
+    </div>
+
+
+    <!-- فرم -->
+
+    <form
+      (ngSubmit)="login()"
+      class="space-y-5"
+    >
+
+      <!-- Username -->
+
+      <div>
+
+        <label
+          class="mb-2 block text-sm font-bold text-gray-700"
+        >
+          نام کاربری
+        </label>
+
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          placeholder="نام کاربری خود را وارد کنید"
+          class="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-100"
+        />
+
+      </div>
+
+
+      <!-- Password -->
+
+      <div>
+
+        <label
+          class="mb-2 block text-sm font-bold text-gray-700"
+        >
+          رمز عبور
+        </label>
+
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="رمز عبور خود را وارد کنید"
+          class="w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-100"
+        />
+
+      </div>
+
+
+      <!-- Button -->
+
+      <button
+        type="submit"
+        class="w-full rounded-xl bg-red-600 py-3.5 font-bold text-white transition hover:bg-red-700 active:scale-[0.98]"
+      >
+        ورود به حساب
+      </button>
+
+    </form>
+
+
+    <!-- Message -->
+
+    @if (message) {
+
+      <div
+        class="mt-5 rounded-xl bg-green-50 px-4 py-3 text-center text-sm font-bold text-green-700"
+      >
+        {{ message }}
+      </div>
+
+    }
+
+
+    <!-- Demo account -->
+
+    <div
+      class="mt-6 rounded-xl bg-gray-50 p-4 text-center"
+    >
+
+      <p class="text-xs text-gray-400">
+        حساب آزمایشی
+      </p>
+
+      <p class="mt-2 text-sm font-bold text-gray-700">
+        admin / 1234
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

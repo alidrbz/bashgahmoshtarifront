@@ -1,0 +1,166 @@
+<div dir="rtl" class="min-h-screen bg-gray-50 p-6">
+
+  <!-- HEADER -->
+
+  <div class="mb-8">
+
+    <h1 class="text-3xl font-black text-gray-900">
+      جوایز من 🎁
+    </h1>
+
+    <p class="mt-2 text-sm text-gray-500">
+      امتیازهایت را به جوایز ارزشمند تبدیل کن
+    </p>
+
+  </div>
+
+
+  <!-- POINTS CARD -->
+
+  <div
+    class="mb-8 overflow-hidden rounded-3xl bg-gradient-to-l from-red-600 to-red-500 p-6 text-white shadow-lg"
+  >
+
+    <div class="flex flex-col justify-between gap-6 md:flex-row md:items-center">
+
+      <div>
+
+        <p class="text-sm text-red-100">
+          امتیاز فعلی شما
+        </p>
+
+        <div class="mt-2 flex items-center gap-3">
+
+          <span class="text-4xl font-black">
+            {{ userPoints }}
+          </span>
+
+          <span class="text-sm text-red-100">
+            امتیاز
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 text-3xl backdrop-blur"
+      >
+        🏆
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TITLE -->
+
+  <div class="mb-5">
+
+    <h2 class="text-xl font-black text-gray-900">
+      جوایز قابل دریافت
+    </h2>
+
+    <p class="mt-1 text-sm text-gray-400">
+      با استفاده از امتیازهایت جایزه مورد نظر را دریافت کن
+    </p>
+
+  </div>
+
+
+  <!-- REWARDS -->
+
+  <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+
+    @for (reward of rewards; track reward.title) {
+
+      <article
+        class="group overflow-hidden rounded-3xl border border-gray-200 bg-white transition duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-xl"
+      >
+
+        <!-- ICON -->
+
+        <div class="flex h-40 items-center justify-center bg-gray-50">
+
+          <div
+            class="flex h-24 w-24 items-center justify-center rounded-full bg-red-50 text-5xl transition duration-300 group-hover:scale-110"
+          >
+            {{ reward.icon }}
+          </div>
+
+        </div>
+
+
+        <!-- CONTENT -->
+
+        <div class="p-5">
+
+          <span
+            class="rounded-full bg-gray-100 px-3 py-1 text-xs font-bold text-gray-500"
+          >
+            {{ reward.type }}
+          </span>
+
+
+          <h3 class="mt-4 text-lg font-black text-gray-900">
+            {{ reward.title }}
+          </h3>
+
+
+          <p class="mt-2 min-h-[48px] text-sm leading-6 text-gray-500">
+            {{ reward.description }}
+          </p>
+
+
+          <!-- POINTS -->
+
+          <div class="mt-5 flex items-center justify-between">
+
+            <div>
+
+              <span class="text-xs text-gray-400">
+                هزینه دریافت
+              </span>
+
+              <div class="mt-1">
+
+                <span class="text-lg font-black text-red-600">
+                  {{ reward.points }}
+                </span>
+
+                <span class="mr-1 text-xs text-gray-400">
+                  امتیاز
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <button
+              (click)="redeemReward(reward)"
+              [disabled]="userPoints < reward.points"
+              class="rounded-xl px-4 py-2.5 text-sm font-bold transition"
+              [class.bg-red-600]="userPoints >= reward.points"
+              [class.text-white]="userPoints >= reward.points"
+              [class.hover:bg-red-700]="userPoints >= reward.points"
+              [class.bg-gray-100]="userPoints < reward.points"
+              [class.text-gray-400]="userPoints < reward.points"
+              [class.cursor-not-allowed]="userPoints < reward.points"
+            >
+              دریافت جایزه
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    }
+
+  </div>
+
+</div>
