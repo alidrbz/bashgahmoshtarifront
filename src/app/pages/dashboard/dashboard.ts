@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Auth } from '../../services/auth';
 import { Router } from '@angular/router';
+import { Sidebar } from '../../shared/sidebar/sidebar';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, Sidebar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })

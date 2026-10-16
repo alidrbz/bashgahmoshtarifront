@@ -1,118 +1,15 @@
+
+
+
+
 <div dir="rtl" class="min-h-screen bg-gray-50">
 
   <div class="flex min-h-screen">
 
-    <!-- SIDEBAR -->
-    <aside class="hidden w-72 shrink-0 border-l border-gray-200 bg-white lg:block">
-
-      <div class="sticky top-0 flex h-screen flex-col">
-
-        <!-- LOGO -->
-        <div class="border-b border-gray-100 p-6">
-
-          <h1 class="text-2xl font-black text-red-600">
-            باشگاه مشتریان
-          </h1>
-
-          <p class="mt-1 text-xs text-gray-400">
-            پنل مدیریت حساب
-          </p>
-
-        </div>
-
-
-        <!-- USER -->
-
-<div class="text-sm font-bold text-gray-700" dir="rtl">
-  سلام، {{ username }} عزیز 👋
+<!-- SIDEBAR -->
+<div class="hidden shrink-0 lg:block">
+  <app-sidebar></app-sidebar>
 </div>
-
-
-        <div class="border-b border-gray-100 p-5">
-
-          <div class="flex items-center gap-3">
-
-            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-xl">
-              👤
-            </div>
-
-            <div>
-
-              <p class="text-sm font-bold text-gray-800">
-                {{ user.name }}
-              </p>
-
-              <p class="mt-1 text-xs text-yellow-600">
-                مشتری {{ user.level }}
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- MENU -->
-        <nav class="flex-1 space-y-2 p-4">
-
-          <a
-            routerLink="/dashboard"
-            routerLinkActive="bg-red-50 text-red-600"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-gray-600 transition hover:bg-gray-50"
-          >
-            <span class="text-xl">🏠</span>
-            <span>داشبورد</span>
-          </a>
-
-
-          <a
-            routerLink="/rewards"
-            routerLinkActive="bg-red-50 text-red-600"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-gray-600 transition hover:bg-gray-50"
-          >
-            <span class="text-xl">🎁</span>
-            <span>جوایز من</span>
-          </a>
-
-
-          <a
-            routerLink="/transactions"
-            routerLinkActive="bg-red-50 text-red-600"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-gray-600 transition hover:bg-gray-50"
-          >
-            <span class="text-xl">💳</span>
-            <span>تراکنش‌ها</span>
-          </a>
-
-
-          <a
-            routerLink="/profile"
-            routerLinkActive="bg-red-50 text-red-600"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-gray-600 transition hover:bg-gray-50"
-          >
-            <span class="text-xl">👤</span>
-            <span>پروفایل</span>
-          </a>
-
-        </nav>
-
-
-        <!-- LOGOUT -->
-        <div class="border-t border-gray-100 p-4">
-
-         <button
-  (click)="logout()"
-  class="rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-red-700"
->
-  خروج از حساب
-</button>
-
-        </div>
-
-      </div>
-
-    </aside>
 
 
     <!-- MAIN CONTENT -->

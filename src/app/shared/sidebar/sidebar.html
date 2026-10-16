@@ -1,1 +1,60 @@
-<p>sidebar works!</p>
+<aside
+  dir="rtl"
+  class="flex min-h-screen w-64 flex-col bg-gray-900 p-5 text-white"
+>
+  <div class="mb-8 border-b border-gray-700 pb-5">
+    <h2 class="text-xl font-black">باشگاه مشتریان</h2>
+
+    <p class="mt-4 text-sm text-gray-300">
+      سلام، {{ username }} عزیز 👋
+    </p>
+
+    <p class="mt-1 text-xs text-gray-400">
+      علی داراب‌زاده
+    </p>
+  </div>
+
+  <nav class="flex flex-1 flex-col gap-2">
+
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="bg-red-600 text-white"
+      class="rounded-xl px-4 py-3 text-gray-300 transition hover:bg-gray-800"
+    >
+      داشبورد
+    </a>
+
+    <a
+      routerLink="/rewards"
+      routerLinkActive="bg-red-600 text-white"
+      class="rounded-xl px-4 py-3 text-gray-300 transition hover:bg-gray-800"
+    >
+      جوایز
+    </a>
+
+    <a
+      routerLink="/transactions"
+      routerLinkActive="bg-red-600 text-white"
+      class="rounded-xl px-4 py-3 text-gray-300 transition hover:bg-gray-800"
+    >
+      تراکنش‌ها
+    </a>
+
+    <a
+      routerLink="/profile"
+      routerLinkActive="bg-red-600 text-white"
+      class="rounded-xl px-4 py-3 text-gray-300 transition hover:bg-gray-800"
+    >
+      پروفایل
+    </a>
+
+  </nav>
+
+  <button
+    type="button"
+    (click)="logout()"
+    class="mt-6 rounded-xl bg-red-600 px-4 py-3 font-bold transition hover:bg-red-700"
+  >
+    خروج از حساب
+  </button>
+</aside>
