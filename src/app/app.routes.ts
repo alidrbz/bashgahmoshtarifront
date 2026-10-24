@@ -1,58 +1,53 @@
+
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth-guard';
+import { Layout } from './shared/layout/layout';
 
 export const routes: Routes = [
-
-  // Login
+  // Login - بدون سایدبار
   {
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login').then(m => m.Login)
   },
 
-  // Dashboard
-  {
-    path: 'dashboard',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./pages/dashboard/dashboard').then(m => m.Dashboard)
-  },
-
-  // Rewards
-  {
-    path: 'rewards',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./pages/rewards/rewards').then(m => m.Rewards)
-  },
-
-  // Transactions
-  {
-    path: 'transactions',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./pages/transactions/transactions').then(m => m.Transactions)
-  },
-
-  // Profile
-  {
-    path: 'profile',
-    canActivate: [authGuard],
-    loadComponent: () =>
-      import('./pages/profile/profile').then(m => m.Profile)
-  },
-
-  // Default
+  // صفحات داخلی با سایدبار مشترک
   {
     path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
+    component: Layout,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard').then(m => m.Dashboard)
+      },
+      {
+        path: 'rewards',
+        loadComponent: () =>
+          import('./pages/rewards/rewards').then(m => m.Rewards)
+      },
+      {
+        path: 'transactions',
+        loadComponent: () =>
+          import('./pages/transactions/transactions').then(m => m.Transactions)
+      },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./pages/profile/profile').then(m => m.Profile)
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
+    ]
   },
 
-  // Not Found
+  // آدرس‌های ناشناخته
   {
     path: '**',
     redirectTo: 'dashboard'
   }
-
 ];

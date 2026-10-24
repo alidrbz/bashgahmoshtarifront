@@ -1,289 +1,175 @@
+
 <div dir="rtl" class="min-h-screen bg-gray-50 p-6">
 
   <!-- HEADER -->
-
   <div class="mb-8">
-
     <h1 class="text-3xl font-black text-gray-900">
-      تراکنش‌های من 💳
+      تراکنش‌های من
     </h1>
-
     <p class="mt-2 text-sm text-gray-500">
-      تاریخچه خریدها و تغییرات امتیاز حساب شما
+      تاریخچه خریدها، امتیازها و جوایز خود را مشاهده کن
     </p>
-
   </div>
 
+  <!-- SUMMARY CARDS -->
+  <div class="mb-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
 
-  <!-- SUMMARY -->
-
-  <div class="mb-8 grid gap-4 md:grid-cols-3">
-
-    <!-- خرید -->
-
-    <div class="rounded-2xl border border-gray-200 bg-white p-5">
-
+    <div class="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
       <div class="flex items-center justify-between">
-
-        <div>
-
-          <p class="text-sm text-gray-400">
-            مجموع خریدها
-          </p>
-
-          <p class="mt-2 text-2xl font-black text-gray-900">
-            ۷,۵۰۰,۰۰۰
-          </p>
-
-          <p class="mt-1 text-xs text-gray-400">
-            تومان
-          </p>
-
-        </div>
-
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-2xl">
-          🛒
-        </div>
-
+        <p class="text-sm font-bold text-gray-500">تعداد تراکنش‌ها</p>
+        <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-2xl">📋</span>
       </div>
-
+      <p class="mt-4 text-3xl font-black text-gray-900">
+        {{ formatNumber(transactions.length) }}
+      </p>
+      <p class="mt-2 text-xs text-gray-400">تمام تراکنش‌های ثبت‌شده</p>
     </div>
 
-
-    <!-- امتیاز -->
-
-    <div class="rounded-2xl border border-gray-200 bg-white p-5">
-
+    <div class="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
       <div class="flex items-center justify-between">
-
-        <div>
-
-          <p class="text-sm text-gray-400">
-            امتیاز کسب شده
-          </p>
-
-          <p class="mt-2 text-2xl font-black text-green-600">
-            +750
-          </p>
-
-          <p class="mt-1 text-xs text-gray-400">
-            امتیاز
-          </p>
-
-        </div>
-
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-2xl">
-          ⭐
-        </div>
-
+        <p class="text-sm font-bold text-gray-500">مجموع خریدها</p>
+        <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-50 text-2xl">🛍️</span>
       </div>
-
+      <p class="mt-4 text-3xl font-black text-gray-900">
+        {{ formatNumber(totalPurchases) }}
+      </p>
+      <p class="mt-2 text-xs text-gray-400">تومان</p>
     </div>
 
-
-    <!-- جایزه -->
-
-    <div class="rounded-2xl border border-gray-200 bg-white p-5">
-
+    <div class="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
       <div class="flex items-center justify-between">
-
-        <div>
-
-          <p class="text-sm text-gray-400">
-            امتیاز مصرف شده
-          </p>
-
-          <p class="mt-2 text-2xl font-black text-red-600">
-            -620
-          </p>
-
-          <p class="mt-1 text-xs text-gray-400">
-            امتیاز
-          </p>
-
-        </div>
-
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-2xl">
-          🎁
-        </div>
-
+        <p class="text-sm font-bold text-gray-500">امتیاز خالص تراکنش‌ها</p>
+        <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-2xl">⭐</span>
       </div>
-
+      <p
+        class="mt-4 text-3xl font-black"
+        [class.text-green-600]="netPoints >= 0"
+        [class.text-red-600]="netPoints < 0"
+      >
+        {{ netPoints > 0 ? '+' : '' }}{{ formatNumber(netPoints) }}
+      </p>
+      <p class="mt-2 text-xs text-gray-400">مجموع امتیازهای مثبت و منفی</p>
     </div>
 
   </div>
 
+  <!-- TRANSACTION HISTORY -->
+  <div class="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
 
-  <!-- TRANSACTIONS -->
-
-  <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white">
-
-    <!-- TABLE HEADER -->
-
-    <div class="border-b border-gray-200 px-6 py-5">
-
+    <div class="border-b border-gray-100 p-6">
       <h2 class="text-xl font-black text-gray-900">
         تاریخچه تراکنش‌ها
       </h2>
+      <p class="mt-2 text-sm text-gray-400">
+        برای پیدا کردن تراکنش موردنظر جست‌وجو یا فیلتر کن
+      </p>
 
+      <!-- SEARCH AND FILTER -->
+      <div class="mt-5 flex flex-col gap-3 md:flex-row">
+
+        <input
+          type="text"
+          [(ngModel)]="searchText"
+          placeholder="جست‌وجو بر اساس عنوان یا شماره تراکنش..."
+          class="min-w-0 flex-1 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none transition focus:border-red-500 focus:bg-white"
+        />
+
+        <select
+          [(ngModel)]="selectedType"
+          class="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm outline-none focus:border-red-500"
+        >
+          @for (type of transactionTypes; track type) {
+            <option [value]="type">{{ type }}</option>
+          }
+        </select>
+
+      </div>
     </div>
 
-
     <!-- TABLE -->
-
     <div class="overflow-x-auto">
+      <table class="w-full min-w-[750px] text-right">
 
-      <table class="w-full min-w-[700px] text-right">
-
-        <thead class="bg-gray-50">
-
-          <tr class="text-sm text-gray-500">
-
-            <th class="px-6 py-4 font-bold">
-              تراکنش
-            </th>
-
-            <th class="px-6 py-4 font-bold">
-              تاریخ
-            </th>
-
-            <th class="px-6 py-4 font-bold">
-              مبلغ
-            </th>
-
-            <th class="px-6 py-4 font-bold">
-              امتیاز
-            </th>
-
-            <th class="px-6 py-4 font-bold">
-              وضعیت
-            </th>
-
+        <thead class="bg-gray-50 text-xs font-bold text-gray-500">
+          <tr>
+            <th class="px-6 py-4">شماره</th>
+            <th class="px-6 py-4">شرح تراکنش</th>
+            <th class="px-6 py-4">تاریخ</th>
+            <th class="px-6 py-4">مبلغ (تومان)</th>
+            <th class="px-6 py-4">امتیاز</th>
+            <th class="px-6 py-4">نوع</th>
+            <th class="px-6 py-4">وضعیت</th>
           </tr>
-
         </thead>
 
+        <tbody class="divide-y divide-gray-100 text-sm">
 
-        <tbody class="divide-y divide-gray-100">
-
-          @for (transaction of transactions; track transaction.id) {
-
+          @for (transaction of filteredTransactions; track transaction.id) {
             <tr class="transition hover:bg-gray-50">
 
-              <!-- TITLE -->
-
-              <td class="px-6 py-5">
-
-                <div class="flex items-center gap-3">
-
-                  <div
-                    class="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100"
-                  >
-
-                    @if (transaction.type === 'خرید') {
-                      🛒
-                    }
-
-                    @if (transaction.type === 'جایزه') {
-                      🎁
-                    }
-
-                    @if (transaction.type === 'بازگشت') {
-                      ↩️
-                    }
-
-                  </div>
-
-                  <div>
-
-                    <p class="text-sm font-bold text-gray-800">
-                      {{ transaction.title }}
-                    </p>
-
-                    <p class="mt-1 text-xs text-gray-400">
-                      #{{ transaction.id }}
-                    </p>
-
-                  </div>
-
-                </div>
-
+              <td class="px-6 py-5 font-bold text-gray-500">
+                {{ transaction.id }}
               </td>
 
+              <td class="px-6 py-5 font-bold text-gray-900">
+                {{ transaction.title }}
+              </td>
 
-              <!-- DATE -->
-
-              <td class="px-6 py-5 text-sm text-gray-500">
+              <td class="whitespace-nowrap px-6 py-5 text-gray-500">
                 {{ transaction.date }}
               </td>
 
-
-              <!-- AMOUNT -->
-
-              <td class="px-6 py-5">
-
-                @if (transaction.amount !== '۰') {
-
-                  <span class="text-sm font-bold text-gray-800">
-                    {{ transaction.amount }}
-                  </span>
-
-                  <span class="mr-1 text-xs text-gray-400">
-                    تومان
-                  </span>
-
-                } @else {
-
-                  <span class="text-sm text-gray-400">
-                    —
-                  </span>
-
-                }
-
+              <td class="whitespace-nowrap px-6 py-5 font-bold text-gray-700">
+                {{ transaction.amount }}
               </td>
 
-
-              <!-- POINTS -->
-
-              <td class="px-6 py-5">
-
-                @if (transaction.points > 0) {
-
-                  <span class="font-black text-green-600">
-                    +{{ transaction.points }}
-                  </span>
-
-                } @else {
-
-                  <span class="font-black text-red-600">
-                    {{ transaction.points }}
-                  </span>
-
-                }
-
+              <td
+                class="whitespace-nowrap px-6 py-5 font-black"
+                [class.text-green-600]="transaction.points > 0"
+                [class.text-red-600]="transaction.points < 0"
+              >
+                {{ transaction.points > 0 ? '+' : '' }}{{ formatNumber(transaction.points) }}
               </td>
 
-
-              <!-- STATUS -->
-
               <td class="px-6 py-5">
-
                 <span
-                  class="rounded-full bg-green-50 px-3 py-1.5 text-xs font-bold text-green-600"
+                  class="rounded-full px-3 py-1 text-xs font-bold"
+                  [class.bg-blue-50]="transaction.type === 'خرید'"
+                  [class.text-blue-700]="transaction.type === 'خرید'"
+                  [class.bg-purple-50]="transaction.type === 'جایزه'"
+                  [class.text-purple-700]="transaction.type === 'جایزه'"
+                  [class.bg-amber-50]="transaction.type === 'بازگشت'"
+                  [class.text-amber-700]="transaction.type === 'بازگشت'"
                 >
-                  {{ transaction.status }}
+                  {{ transaction.type }}
                 </span>
+              </td>
 
+              <td class="px-6 py-5">
+                <span class="rounded-full bg-green-50 px-3 py-1 text-xs font-bold text-green-700">
+                  ✓ {{ transaction.status }}
+                </span>
               </td>
 
             </tr>
-
+          } @empty {
+            <tr>
+              <td colspan="7" class="px-6 py-12 text-center text-gray-400">
+                تراکنشی با این مشخصات پیدا نشد.
+              </td>
+            </tr>
           }
 
         </tbody>
-
       </table>
+    </div>
 
+    <!-- FOOTER -->
+    <div class="border-t border-gray-100 bg-gray-50 px-6 py-4 text-sm text-gray-500">
+      تعداد نتایج:
+      <span class="font-black text-gray-900">
+        {{ formatNumber(filteredTransactions.length) }}
+      </span>
     </div>
 
   </div>

@@ -1,13 +1,14 @@
+
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-rewards',
+  standalone: true,
   imports: [],
   templateUrl: './rewards.html',
   styleUrl: './rewards.css'
 })
 export class Rewards {
-
   rewards = [
     {
       title: 'کد تخفیف ۲۰٪',
@@ -40,23 +41,29 @@ export class Rewards {
   ];
 
   userPoints = 1250;
+  message = '';
+  messageType: 'success' | 'warning' = 'success';
 
-  redeemReward(reward: any) {
-
-    if (this.userPoints >= reward.points) {
-
-      this.userPoints -= reward.points;
-
-      alert(
-        `تبریک! جایزه «${reward.title}» برای شما فعال شد.`
-      );
-
-    } else {
-
-      alert(
-        `امتیاز شما برای دریافت این جایزه کافی نیست.`
-      );
-
+  redeemReward(reward: any): void {
+    if (this.userPoints < reward.points) {
+      this.messageType = 'warning';
+      this.message = 'امتیاز شما برای دریافت این جایزه کافی نیست.';
+      return;
     }
+
+    const confirmed = window.confirm(
+      `آیا مطمئن هستید که جایزه «${reward.title}» را با ${reward.points} امتیاز دریافت کنید؟`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.userPoints -= reward.points;
+
+    this.messageType = 'success';
+    this.message =
+      `تبریک! جایزه «${reward.title}» با موفقیت دریافت شد. ` +
+      `امتیاز باقی‌مانده شما: ${this.userPoints}`;
   }
 }
